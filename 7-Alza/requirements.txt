@@ -1,0 +1,4 @@
+robotframework==5.0
+robotframework-seleniumlibrary==6.0.0
+robotframework-pabot==2.5.3
+# pip install -r requirements.txt
