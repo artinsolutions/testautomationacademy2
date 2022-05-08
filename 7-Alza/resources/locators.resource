@@ -18,3 +18,12 @@ ${price_partial_locator}    //div[@class='price']//span[@class='c2']
 ${add_to_cart_partial_locator}    //a[@data-lb-action='buy']
 ${top_right_cart_partial_count}    //span[@class='count']
 ${top_right_cart_partial_price}    //span[@id='price']
+
+
+
+${search_bar}    id=edtSearch
+${btn_search}    id=btnSearch
+
+${first_row}    xpath=//div[contains(@class, 'firstRow')]
+${catalog_link}    //a[text()='{}']
+${hover_menu_section}    xpath=//div[@class='item fullList'][contains(., '{}')]

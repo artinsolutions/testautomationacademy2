@@ -1,11 +1,12 @@
 *** Settings ***
 Resource    keywords.resource
 Test Setup    Setup Keyword
-Test Teardown     Close Browser
+#Test Teardown     Close Browser
 
 
 *** Test Cases ***
 311 Adding a specific item via available category filters
+    [Tags]    e2e    catalogue    cart
     Select From Left Menu    Computers and Laptops
     Select From Left Menu    Laptops
     Select From Category    Home & Office
@@ -30,9 +31,25 @@ Test Teardown     Close Browser
     Click Element    confirmOrder2Button
     Wait Until Location Is    https://www.alza.sk/Order3.htm
 
+312A Adding a multiple items via various paths - using search
+    [Tags]    catalogue    cart
+    Search For Using Search Bar    lego
+    Select From Header Menu    Top-Rated
+    ${prodcut_data}    Add To Cart Item With Row And Column    3    2
 
+312B Adding a multiple items via various paths - carousel
+    [Tags]     not-working
+    Log    HOW?
+    Fail    No Idea How To Do It
 
-
+312C Adding a multiple items via various paths - Hover
+    [Tags]    catalogue    cart
+    Hover Over Left Menu Item    Household Supplies
+    Select More Items From Hovered Menu Section    Light Bulbs and Lighting
+    Select From Hovered Menu    Light Bulbs and Lighting    Work Lights
+    Select From Header Menu    Best Sellers
+    Item With Index Should Contain Icon    1    icon-first-place
+    Fail    Needs to be finished
 
 
 

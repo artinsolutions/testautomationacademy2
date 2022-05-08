@@ -6,8 +6,9 @@ Resource    locators.resource
 *** Keywords ***
 Setup Keyword
     Open Browser    https://www.alza.sk/EN/    gc
+    Set Window Size    1920    1080
     Accept Cookies
-    Maximize Browser Window
+    Reload Page
 
 Accept Cookies
     Wait Until Page Contains Element    xpath=//a[@data-action-id-value='1023']
@@ -50,7 +51,7 @@ Add To Cart Item With Index
     ${locator}    Catenate   SEPARATOR=   ${item_boxes}    [${index}]    ${add_to_cart_partial_locator}
     Wait Until Page Contains Element    ${locator}
     Click Element    ${locator}
-    Wait Until Page Contains    Product Added to Cart.
+    Wait Until Page Contains    Product Added to Cart.    timeout=15 s
 
 Top Right Cart Should Contain Count And Price
     [Arguments]    ${number}    ${total}
@@ -77,6 +78,45 @@ Choose Payment Type
     Wait Until Element Is Visible    ${locator}
     Sleep    2 s
     Click Element    ${locator}
+
+Search For Using Search Bar
+    [Arguments]    ${search_text}
+    Wait Until Page Contains Element    ${search_bar}
+    Input Text    ${search_bar}    ${search_text}
+    Click Element    ${btn_search}
+
+Add To Cart Item With Row And Column
+    [Arguments]    ${row}    ${column}
+    ${rows}    Get Webelements    ${first_row}
+    ${row_items_count}    Get Length    ${rows}
+    ${index}    Evaluate    (int(${row})-1) * int(${row_items_count}) + int(${column})
+    ${product_data}    Select Item With Index And Return Name And Price    3
+    Add To Cart Item With Index    ${index}
+    [Return]    ${product_data}
+
+Hover Over Left Menu Item
+    [Arguments]    ${item}
+    ${locator}    Format String    ${left_menu_item}    ${item}
+    Wait Until Page Contains Element    ${locator}
+    Mouse Over    ${locator}
+
+Select More Items From Hovered Menu Section
+    [Arguments]    ${menu_section}
+    ${locator}    Format String    ${hover_menu_section}    ${menu_section}
+    ${locator_full}    Catenate   SEPARATOR=   ${locator}    //span[@class='btnMore']
+    Wait Until Element Is Visible    ${locator_full}
+    Wait Until Page Contains Element    ${locator_full}
+    Click Element    ${locator_full}
+
+
+Select From Hovered Menu
+    [Arguments]    ${menu}    ${item}
+    ${locator_menu_section}    Format String    ${hover_menu_section}    ${menu}
+    ${locator}    Format String    ${catalog_link}    ${item}
+    ${locator_full}    Catenate   SEPARATOR=   ${locator_menu_section}    ${locator}
+    Wait Until Page Contains Element    ${locator_full}
+    Wait Until Element Is Visible    ${locator_full}
+    Click Element    ${locator_full}
 
 
 
