@@ -1,19 +1,25 @@
 *** Settings ***
 Resource    keywords.resource
 Test Setup    Setup Keyword
-#Test Teardown     Close Browser
+Test Teardown     Close Browser
 
 
 *** Test Cases ***
 311 Adding a specific item via available category filters
     [Tags]    e2e    catalogue    cart
     Select From Left Menu    Computers and Laptops
+#    Select From Left Menu    ${Laptops}
+
+#    Wait Until Page Contains Element    ${Laptops}
+#    Wait Until Element is Visible    ${Laptops}
+#    Click Element    ${Laptops}
     Select From Left Menu    Laptops
     Select From Category    Home & Office
     Select From Category    Affordable
     Select From Header Menu    Best Sellers
     Item With Index Should Contain Icon    3    icon-third-place
     ${product_data}    Select Item With Index And Return Name And Price    3
+    #  ${product_data}    ["lenovo", "1240 Eur"]
     Add To Cart Item With Index    3
     Top Right Cart Should Contain Count And Price    1    ${product_data[1]}
     Click Element    ${checkout}

@@ -1,8 +1,11 @@
 *** Variables ***
 ${left_menu_item}    xpath=//div[@id='left']//a[text()='{}']
+#${left_menu_item}    xpath=//div[@id='left']//a[text()='{text}'][{index}]
+
 ${category_item}    xpath=//div[contains(@class, 'catlistContainer')]//a/span[text()='{}']
 ${header_item}    xpath=//div[@id='tabs']//li[@role='tab']/a[text()='{}']
 ${item_boxes}    xpath=(//div[@id='boxc']/div[@id='boxes']/div)
+${item_boxes_to_format}    xpath=(//div[@id='boxc']/div[@id='boxes']/div)[{}]//img[contains(@data-src, '{}')]
 ${top_right_cart}    xpath=//div[@id='top1']//div[@id='basketc']
 ${checkout}    id=varBToBasketButton
 ${continue}    id=blockBtnRight
